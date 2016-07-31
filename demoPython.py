@@ -46,7 +46,7 @@ transformer.set_channel_swap('data', (2,1,0))  # swap channels from RGB to BGR
 net.blobs['data'].reshape(50,        # batch size
                           3,         # 3-channel (BGR) images
                           227, 227)  # image size is 227x227
-                          
+
 image = caffe.io.load_image(caffe_root + 'examples\\images\\cat.jpg')
 transformed_image = transformer.preprocess('data', image)
 plt.imshow(image)
@@ -83,48 +83,48 @@ for it in zip(output_prob[top_inds], labels[top_inds]):
 # for each layer, show the output shape
 for layer_name, blob in net.blobs.iteritems():
     print layer_name + '\t' + str(blob.data.shape)
-    
-    
+
+
 
 for layer_name, param in net.params.iteritems():
     print layer_name + '\t' + str(param[0].data.shape), str(param[1].data.shape)
-    
-              
+
+
 def vis_square(data):
     """Take an array of shape (n, height, width) or (n, height, width, 3)
        and visualize each (height, width) thing in a grid of size approx. sqrt(n) by sqrt(n)"""
-    
+
     # normalize data for display
     data = (data - data.min()) / (data.max() - data.min())
-    
+
     # force the number of filters to be square
     n = int(np.ceil(np.sqrt(data.shape[0])))
     padding = (((0, n ** 2 - data.shape[0]),
                (0, 1), (0, 1))                 # add some space between filters
                + ((0, 0),) * (data.ndim - 3))  # don't pad the last dimension (if there is one)
     data = np.pad(data, padding, mode='constant', constant_values=1)  # pad with ones (white)
-    
+
     # tile the filters into an image
     data = data.reshape((n, n) + data.shape[1:]).transpose((0, 2, 1, 3) + tuple(range(4, data.ndim + 1)))
     data = data.reshape((n * data.shape[1], n * data.shape[3]) + data.shape[4:])
-    
+
     plt.imshow(data)
     plt.axis('off')
     plt.show()
-    
-    
-    
-    
+
+
+
+
 # the parameters are a list of [weights, biases]
 filters = net.params['conv1'][0].data
-vis_square(filters.transpose(0, 2, 3, 1))   
-    
-    
+vis_square(filters.transpose(0, 2, 3, 1))
+
+
 feat = net.blobs['conv1'].data[0, :36]
-vis_square(feat)    
-    
-    
-    
+vis_square(feat)
+
+
+
 feat = net.blobs['pool5'].data[0]
 vis_square(feat)
 
@@ -138,5 +138,35 @@ plt.show()
 
 feat = net.blobs['prob'].data[0]
 plt.figure(figsize=(15, 3))
-plt.plot(feat.flat)   
+plt.plot(feat.flat)
 plt.show()
+
+'''
+import os
+
+# 下载图像
+#my_image_url = "..."  # 将你的图像URL粘贴到这里
+# 例如:
+my_image_url = "https://upload.wikimedia.org/wikipedia/commons/b/be/Orang_Utan%2C_Semenggok_Forest_Reserve%2C_Sarawak%2C_Borneo%2C_Malaysia.JPG"
+os.system("wget -O image.jpg " + my_image_url)
+'''	
+
+# 变换图像并将其拷贝到网络
+image = caffe.io.load_image('image.jpg')
+net.blobs['data'].data[...] = transformer.preprocess('data', image)
+
+# 预测分类结果
+net.forward()
+
+# 获取输出概率值
+output_prob = net.blobs['prob'].data[0]
+
+# 将softmax的输出结果按照从大到小排序，并提取前5名
+top_inds = output_prob.argsort()[::-1][:5]
+
+print 'probabilities and labels:'
+for it in zip(output_prob[top_inds], labels[top_inds]):
+		print it
+plt.imshow(image)
+plt.show()
+
