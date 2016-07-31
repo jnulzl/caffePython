@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Caffe for Python
 ##This is a Caffe for python tutorial in Windows.
 
@@ -16,8 +15,3 @@
 ##7、直接双击"demoPython.bat"即可运行！
 
 #*翻译自：[00-classification](http://nbviewer.jupyter.org/github/BVLC/caffe/blob/master/examples/00-classification.ipynb)*
-	
-=======
-# caffePython
-Caffe for python tutorial and demo
->>>>>>> 481a37894f28f7ac5f398168c1e8ca87ea280694
