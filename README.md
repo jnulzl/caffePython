@@ -2,7 +2,7 @@
 ##This is a Caffe for python tutorial in Windows.
 
 #Step:
-##1、安装Anaconda2；
+##1、安装[Anaconda2.7 64bit](http://nbviewer.jupyter.org/github/BVLC/caffe/blob/master/examples/00-classification.ipynb)；
 ##2、将pycaffe文件下的所有内容复制到Anaconda2(Python)的"site-##packages"文件下；
 ##3、在cmd中执行
     pip install protobuf
@@ -13,5 +13,5 @@
 ##改为你自己的caffe根目录即可，例如我的是
     caffe_root = 'H:\\Caffe\\Caffe_CPU_ONLY(Debug_Release)\\caffe-windows\\'  # this file should be run from {caffe_root}/examples (otherwise change this line)
 ##7、直接双击"demoPython.bat"即可运行！
-
+#环境：Win10 64bit + Anaconda2.7 64bit
 #*翻译自：[00-classification](http://nbviewer.jupyter.org/github/BVLC/caffe/blob/master/examples/00-classification.ipynb)*
