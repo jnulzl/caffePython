@@ -6,7 +6,7 @@
 ##2、将pycaffe文件下的所有内容复制到Anaconda2(Python)的"site-##packages"文件下；
 ##3、在cmd中执行
     pip install protobuf
-##4、将"bvlc_reference_caffenet.caffemodel"拷贝到caffe的根目录下的"caffe_root/models/bvlc_reference_caffenet/"文件下；
+##4、下载"bvlc_reference_caffenet.caffemodel"，并将其拷贝到caffe的根目录下的"caffe_root/models/bvlc_reference_caffenet/"文件下；
 ##5、将"synset_words.txt"拷贝到caffe的根目录下的"caffe_root/ilsvrc12/'"文件下。
 ##6、将"demoPython.py"文件中的第19行
     caffe_root = '...'
